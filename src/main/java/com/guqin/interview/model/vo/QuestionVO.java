@@ -1,5 +1,6 @@
 package com.guqin.interview.model.vo;
 
+import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.guqin.interview.model.entity.Question;
 import lombok.Data;
@@ -91,6 +92,8 @@ public class QuestionVO implements Serializable {
         }
         QuestionVO questionVO = new QuestionVO();
         BeanUtils.copyProperties(question, questionVO);
+        JSONArray jsonTags = JSONUtil.parseArray(question.getTags());
+        questionVO.setTags(jsonTags.toList(String.class));
         return questionVO;
     }
 }
