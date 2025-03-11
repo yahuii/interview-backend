@@ -163,9 +163,7 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
             return questionVOPage;
         }
         // 对象列表 => 封装对象列表
-        List<QuestionVO> questionVOList = questionList.stream().map(question -> {
-            return QuestionVO.objToVo(question);
-        }).collect(Collectors.toList());
+        List<QuestionVO> questionVOList = questionList.stream().map(QuestionVO::objToVo).collect(Collectors.toList());
 
         // todo 可以根据需要为封装对象补充值，不需要的内容可以删除
         // region 可选
@@ -211,9 +209,16 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
                 // 复用原有题目表的查询条件
                 queryWrapper.in("id", questionIdSet);
             }
+            else{
+                // 题库为空，返回空列表
+                return new Page<>(current, size);
+            }
         }
         // 查询数据库
         Page<Question> questionPage = this.page(new Page<>(current, size), queryWrapper);
+        questionPage.setRecords(questionPage.getRecords().stream().peek(question ->
+                question.setUserName(userService.getById(question.getUserId()).getUserName()))
+                .collect(Collectors.toList()));
         return questionPage;
     }
 

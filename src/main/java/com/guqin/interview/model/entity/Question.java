@@ -45,6 +45,12 @@ public class Question implements Serializable {
     private Long userId;
 
     /**
+     * 创建用户名称
+     */
+    @TableField(exist = false)
+    private String userName;
+
+    /**
      * 编辑时间
      */
     private Date editTime;
