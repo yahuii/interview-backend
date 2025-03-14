@@ -42,8 +42,13 @@ public class QuestionBankQuestion implements Serializable {
     /**
      * 更新时间
      */
-    @TableLogic
     private Date updateTime;
+
+    /**
+     * 是否删除
+     */
+    @TableLogic
+    private Integer isDelete;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
