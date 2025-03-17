@@ -98,11 +98,8 @@ public class ChatWebSocketHandler implements WebSocketHandler {
                 }
 
                 session.sendMessage(new TextMessage("[DONE]")); // 结束标记
-            } catch (Exception e) {
-                try {
-                    session.sendMessage(new TextMessage("ERROR: " + e.getMessage()));
-                } catch (Exception ignored) {
-                }
+            } catch (Exception ignored) {
+
             }
         });
     }

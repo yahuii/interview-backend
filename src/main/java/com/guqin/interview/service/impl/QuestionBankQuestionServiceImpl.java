@@ -91,12 +91,12 @@ public class QuestionBankQuestionServiceImpl extends ServiceImpl<QuestionBankQue
             queryWrapper.and(qw -> qw.like("title", searchText).or().like("content", searchText));
         }
         // 精确查询
-        queryWrapper.ne(ObjectUtils.isNotEmpty(notId), "id", notId);
-        queryWrapper.eq(ObjectUtils.isNotEmpty(id), "id", id);
-        queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "userId", userId);
+        queryWrapper.ne(Objects.nonNull(notId), "id", notId);
+        queryWrapper.eq(Objects.nonNull(id), "id", id);
+        queryWrapper.eq(Objects.nonNull(userId), "userId", userId);
 
-        queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "questionId", questionId);
-        queryWrapper.eq(ObjectUtils.isNotEmpty(userId), "questionBankId", questionBankId);
+        queryWrapper.eq(Objects.nonNull(questionId), "questionId", questionId);
+        queryWrapper.eq(Objects.nonNull(questionBankId), "questionBankId", questionBankId);
 
         // 排序规则
         queryWrapper.orderBy(SqlUtils.validSortField(sortField),
